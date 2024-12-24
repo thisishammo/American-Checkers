@@ -19,7 +19,10 @@ const io = socketIO(server, {
 console.log(__dirname); // For debugging: prints the directory of server.js
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // Frontend's URL
+  credentials: true, // Allow credentials if needed
+}));
 app.use(express.json());
 
 // Routes

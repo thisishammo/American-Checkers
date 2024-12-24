@@ -8,5 +8,5 @@ Feel free to contribute😊
 
 ## Authors
 
-- [@thisishammo](https://www.github.com/octokatherine)
+- [@thisishammo](https://www.github.com/thisishammo)
 

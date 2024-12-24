@@ -1,18 +1,29 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchLeaderboard } from '../../store/leaderboardSlice';
+import './Leaderboard.css';
 
-function Leaderboard() {
+const Leaderboard = () => {
     const dispatch = useDispatch();
-    const leaderboard = useSelector(state => state.leaderboard.players);
+    const { players, status, error } = useSelector((state) => state.leaderboard);
 
     useEffect(() => {
-        dispatch(fetchLeaderboard());
-    }, [dispatch]);
+        if (status === 'idle') {
+            dispatch(fetchLeaderboard());
+        }
+    }, [status, dispatch]);
+
+    if (status === 'loading') {
+        return <div>Loading Leaderboard...</div>;
+    }
+
+    if (status === 'failed') {
+        return <div>Error: {error}</div>;
+    }
 
     return (
         <div className="leaderboard">
-            <h2>Global Leaderboard</h2>
+            <h2>Leaderboard</h2>
             <table>
                 <thead>
                     <tr>
@@ -22,8 +33,8 @@ function Leaderboard() {
                     </tr>
                 </thead>
                 <tbody>
-                    {leaderboard.map((player, index) => (
-                        <tr key={player.id}>
+                    {players.map((player, index) => (
+                        <tr key={player.username}>
                             <td>{index + 1}</td>
                             <td>{player.username}</td>
                             <td>{player.points}</td>
@@ -33,6 +44,6 @@ function Leaderboard() {
             </table>
         </div>
     );
-}
+};
 
 export default Leaderboard; 
