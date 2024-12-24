@@ -8,4 +8,37 @@ body {
 .App {
   text-align: center;
   padding: 20px;
+}
+
+nav {
+  margin: 20px 0;
+}
+
+.nav-link {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background-color: #008CBA;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: #005f6a;
+}
+
+.start-game-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.start-game-link:hover {
+  background-color: #45a049;
 } 

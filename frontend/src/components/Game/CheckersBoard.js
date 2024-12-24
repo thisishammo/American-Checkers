@@ -1,36 +1,36 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { initializeBoard, makeMove } from '../../store/gameSlice';
+import React from 'react';
+import './CheckersBoard.css'; // Optional: For styling the board
 
-function CheckersBoard() {
-    const dispatch = useDispatch();
-    const board = useSelector(state => state.game.board);
-    const currentPlayer = useSelector(state => state.game.currentPlayer);
+const CheckersBoard = () => {
+    const renderSquare = (i, j) => {
+        const isBlack = (i + j) % 2 === 1;
+        const piece = getPiece(i, j);
+        return (
+            <div
+                key={`${i}-${j}`}
+                className={`square ${isBlack ? 'black' : 'white'}`}
+            >
+                {piece && <div className={`piece ${piece}`}></div>}
+            </div>
+        );
+    };
 
-    useEffect(() => {
-        dispatch(initializeBoard());
-    }, [dispatch]);
-
-    const handleCellClick = (row, col) => {
-        // Logic to handle cell selection and move
-        dispatch(makeMove(row, col));
+    const getPiece = (i, j) => {
+        if (i < 3 && (i + j) % 2 === 1) return 'red';
+        if (i > 4 && (i + j) % 2 === 1) return 'blue';
+        return null;
     };
 
     return (
-        <div className="checkers-board grid grid-cols-8">
-            {board.map((row, rowIndex) =>
-                row.map((cell, colIndex) => (
-                    <div
-                        key={`${rowIndex}-${colIndex}`}
-                        className={`cell ${cell.color}`}
-                        onClick={() => handleCellClick(rowIndex, colIndex)}
-                    >
-                        {cell.piece && <span className={`piece ${cell.piece.owner}`}>{cell.piece.type}</span>}
-                    </div>
-                ))
-            )}
+        <div className="checkers-board">
+            <h2>Checkers Game</h2>
+            <div className="board">
+                {[...Array(8)].map((_, i) =>
+                    [...Array(8)].map((_, j) => renderSquare(i, j))
+                )}
+            </div>
         </div>
     );
-}
+};
 
 export default CheckersBoard; 
